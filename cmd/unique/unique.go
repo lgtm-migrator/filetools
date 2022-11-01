@@ -22,6 +22,7 @@ import (
 	_ "net/http/pprof"
 
 	"github.com/jeremyje/filetools/internal"
+	"github.com/jeremyje/filetools/internal/unique"
 )
 
 var (
@@ -40,11 +41,11 @@ var (
 
 func main() {
 	internal.Initialize()
-	internal.Check(internal.Unique(fromFlags()))
+	internal.Check(unique.Run(fromFlags()))
 }
 
-func fromFlags() *internal.UniqueParams {
-	return &internal.UniqueParams{
+func fromFlags() *unique.Params {
+	return &unique.Params{
 		Paths:           internal.StringList(pathFlag),
 		MinSize:         *minSizeFlag,
 		DeletePaths:     internal.StringList(deleteFlag),
